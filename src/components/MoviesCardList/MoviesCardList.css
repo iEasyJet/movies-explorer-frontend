@@ -1,0 +1,32 @@
+.cardList {
+  margin: 0;
+  padding: 0;
+  background: #FAFAFA;
+  min-width: 320px;
+}
+.cardList__container {
+  margin: 0 auto;
+  padding: 0 70px;
+  max-width: 1140px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  row-gap: 32px;
+  column-gap: 28px;
+}
+
+@media (max-width: 890px) {
+  .cardList__container {
+    padding: 0 30px;
+    row-gap: 35px;
+    column-gap: 24px;
+  }
+}
+
+@media (max-width: 400px) {
+  .cardList__container {
+    padding: 0 10px;
+    row-gap: 16px;
+    column-gap: 0;
+  }
+}

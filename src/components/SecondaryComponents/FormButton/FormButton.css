@@ -1,0 +1,35 @@
+.form__submit { 
+  cursor: pointer;
+  width: 100%;
+  min-height: 45px;
+  display: block;
+  border: none;
+  background: #3456f3;
+  border-radius: 3px;
+
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+
+  color: #ffffff;
+  transition: all 0.2s linear;
+}
+
+.form__submit:hover {
+  opacity: 0.8;
+}
+
+.form__submit:focus {
+  outline: none !important;
+  border: 2px solid #3456f3;
+}
+
+@media (max-width: 500px) {
+  .form__submit {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}
