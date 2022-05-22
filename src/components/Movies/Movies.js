@@ -67,6 +67,7 @@ function Movies(props) {
         setMovies(res);
       })
       .catch(() => {
+
         props.setOpenModalWindow(true);
         props.setIsOk(false);
         props.setText(
