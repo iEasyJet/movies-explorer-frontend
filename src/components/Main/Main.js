@@ -7,11 +7,19 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import MainHeader from '../MainHeader/MainHeader';
 
-function Main() {
+function Main(props) {
+  const background = {
+    background: '#DDDEE3',
+  };
   return (
     <>
-      <SecondHeader />
+      {props.loggedIn ? (
+        <MainHeader background={background} />
+      ) : (
+        <SecondHeader />
+      )}
       <Promo />
       <NavTab />
       <AboutProject />

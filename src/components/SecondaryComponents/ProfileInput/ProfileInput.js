@@ -7,7 +7,13 @@ function ProfileInput(props) {
         type={props.type}
         className='profileInput__input'
         name={props.name}
+        required
         defaultValue={props.text}
+        ref={props.refName}
+        onChange={props.onChange}
+        minLength={props.minLen}
+        maxLength={props.maxLen}
+        pattern={props.namePattern}
       />
     </div>
   );

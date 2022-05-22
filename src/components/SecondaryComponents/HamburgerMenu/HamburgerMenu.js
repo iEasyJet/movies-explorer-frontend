@@ -1,8 +1,16 @@
 import './HamburgerMenu.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import logoAcc from '../../../images/Header/header.svg';
 
 function HamburgerMenu() {
+  /* История */
+  const history = useHistory();
+
+  /* Редирект на профиль */
+  function goToProfile() {
+    history.push('/profile');
+  }
+
   return (
     <div className='hamburger-menu'>
       <input id='menu__toggle' type='checkbox' />
@@ -37,7 +45,7 @@ function HamburgerMenu() {
             <span className='menu__underline'>Сохранённые фильмы</span>
           </NavLink>
         </div>
-        <button className='menu__acc'>
+        <button className='menu__acc' onClick={goToProfile}>
           <img src={logoAcc} alt='Аккаунт' className='menu__logo' />
           Аккаунт
         </button>

@@ -1,0 +1,58 @@
+.movie__button {
+  margin: 18px auto 0;
+  padding: 0;
+  width: 100px;
+  height: 29px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 11px;
+  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  color: #000000;
+  
+  background: #F4F4F4;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+
+.movie__button_saved {
+  margin: 18px auto 0;
+  padding: 0;
+  width: 100px;
+  height: 29px;
+  background: url(../../../images/Movie/check.svg) no-repeat center, #EE3465;
+  border-radius: 30px;
+  border: none;
+  transition: all 0.2s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.movie__button_delete {
+  margin: 18px auto 0;
+  padding: 0;
+  width: 100px;
+  height: 29px;
+  border-radius: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s linear;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: url(../../../images/Movie/delete.svg) no-repeat center, #F4F4F4;
+  transition: all 0.2s linear;
+}
+.movie__button:hover {
+  opacity: 0.8;
+}
+.movie__button_delete:hover {
+  opacity: 0.8;
+}

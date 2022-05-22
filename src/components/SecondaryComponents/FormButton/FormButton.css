@@ -26,7 +26,9 @@
   outline: none !important;
   border: 2px solid #3456f3;
 }
-
+.form__submit_disabled {
+  background: gray;
+}
 @media (max-width: 500px) {
   .form__submit {
     font-size: 12px;

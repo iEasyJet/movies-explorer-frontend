@@ -1,12 +1,14 @@
 .form__err-container {
   display: flex;
+  min-height: 40px;
 }
 .form__placeholder {
-  padding: 20px 50px 10px 0;
+  padding: 20px 10px 10px 0;
   margin: 0;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
   font-style: normal;
   font-weight: 400;
+  min-width: 50px;
   font-size: 10px;
   line-height: 12px;
   

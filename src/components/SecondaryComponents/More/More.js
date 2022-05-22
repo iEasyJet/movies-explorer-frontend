@@ -1,8 +1,8 @@
 import './More.css';
-function More() {
+function More(props) {
   return (
     <section className='more'>
-      <button type='button' className='more__button'>
+      <button type='button' className='more__button' onClick={props.click}>
         Ещё
       </button>
     </section>

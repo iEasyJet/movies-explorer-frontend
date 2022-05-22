@@ -10,8 +10,14 @@ function Input(props) {
       <input
         type={props.type}
         required
+        minLength={props.minLen}
+        maxLength={props.maxLen}
         className='form__input'
         name={props.name}
+        ref={props.refName}
+        value={props.value}
+        onChange={props.handleInput}
+        pattern={props.namePattern}
       />
     </>
   );

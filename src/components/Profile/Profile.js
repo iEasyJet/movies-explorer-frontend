@@ -1,45 +1,100 @@
 import './Profile.css';
-import ProfileInput from '../SecondaryComponents/ProfileInput/ProfileInput';
 import MainHeader from '../MainHeader/MainHeader';
-import { useHistory } from 'react-router-dom';
-function Profile() {
-  const history = useHistory();
-  function logout() {
-    history.push('/sign-up');
+import CurrentUserContext from '../../context/CurrentUserContext';
+import React, { useState, useRef } from 'react';
+import ProfileChangeBox from '../SecondaryComponents/ProfileChangeBox/ProfileChangeBox';
+import ProfileBox from '../SecondaryComponents/ProfileBox/ProfileBox';
+import FormButton from '../SecondaryComponents/FormButton/FormButton';
+
+function Profile(props) {
+  /* Подписка на контекст */
+  const currentUser = React.useContext(CurrentUserContext);
+
+  /* Стейт на смену кнопки для редактирования */
+  const [changeButon, setChangeButton] = useState(false);
+
+  /* Стейты  на валидность */
+  const [isValidName, setValidityName] = useState(true);
+  const [isValidEmail, setValidityEmail] = useState(true);
+
+  /* Рефы */
+  const nameRef = useRef();
+  const emailRef = useRef();
+
+  /* Смена кнопки */
+  function changeButton() {
+    setChangeButton(true);
+  }
+
+  /* Смена данных */
+  function isSubmit(e) {
+    e.preventDefault();
+
+    const dataUser = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+    };
+    props.changeUserData(dataUser);
+    setChangeButton(false);
   }
   return (
     <>
       <MainHeader />
       <div className='profile'>
         <div className='profile__container'>
-          <h1 className='profile__title'>Привет, Виталий!</h1>
-          <form className='profile__form'>
-            <ProfileInput
-              placeholderName='Имя'
-              type='text'
-              name='name'
-              text='Виталий'
+          {changeButon ? (
+            <ProfileChangeBox
+              name={currentUser.user.name}
+              email={currentUser.user.email}
+              nameRef={nameRef}
+              emailRef={emailRef}
+              validName={setValidityName}
+              validEmail={setValidityEmail}
             />
-            <span className='profile__line'></span>
-            <ProfileInput
-              placeholderName='E-mail'
-              type='email'
-              name='email'
-              text='pochta@mail.ru'
+          ) : (
+            <ProfileBox
+              name={currentUser.user.name}
+              email={currentUser.user.email}
             />
-          </form>
-          <div className='profile__buttons'>
-            <button type='button' className='profile__edit-button'>
-              Редактировать
-            </button>
-            <button
-              type='button'
-              className='profile__logout-button'
-              onClick={logout}
-            >
-              Выйти из аккаунта
-            </button>
-          </div>
+          )}
+        </div>
+        <div className='profile__buttons'>
+          {changeButon ? (
+            <>
+              <FormButton
+                name='Сохранить'
+                mod='profile_mod'
+                onSubmit={isSubmit}
+                disabled={!(isValidName && isValidEmail)}
+              />
+              <button
+                type='button'
+                className='profile__logout-button'
+                onClick={() => {
+                  setChangeButton(false);
+                }}
+              >
+                Отменить изменения
+              </button>
+            </>
+          ) : (
+            <>
+              <button
+                type='button'
+                className='profile__edit-button'
+                onClick={changeButton}
+              >
+                Редактировать
+              </button>
+              <button
+                type='button'
+                className='profile__logout-button'
+                onClick={props.logout}
+              >
+                Выйти из аккаунта
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>

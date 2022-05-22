@@ -5,16 +5,22 @@ import headerLogo from '../../images/Header/header.svg';
 import HamburgerMenu from '../SecondaryComponents/HamburgerMenu/HamburgerMenu';
 import { useHistory } from 'react-router-dom';
 
-function MainHeader() {
+function MainHeader(props) {
+  /* История */
   const history = useHistory();
+
+  /* Редирект на профиль */
   function goToProfile() {
     history.push('/profile');
   }
+
+  /* Редирект на главную */
   function goToHome() {
     history.push('/');
   }
+
   return (
-    <header className='header'>
+    <header className='header' style={props.background}>
       <div className='header__container'>
         <img
           src={logo}
