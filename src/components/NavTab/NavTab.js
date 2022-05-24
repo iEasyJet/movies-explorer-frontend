@@ -1,4 +1,5 @@
 import './NavTab.css';
+import { AboutProject, Technology, NavTabStudent } from '../../utils/constants';
 
 function NavTab() {
   return (
@@ -7,17 +8,17 @@ function NavTab() {
         <ul className='nav__list'>
           <li>
             <a href='#aboutProject' className='nav__link'>
-              О проекте
+              {AboutProject}
             </a>
           </li>
           <li>
             <a href='#tech' className='nav__link'>
-              Технологии
+              {Technology}
             </a>
           </li>
           <li>
             <a href='#student ' className='nav__link'>
-              Студент
+              {NavTabStudent}
             </a>
           </li>
         </ul>

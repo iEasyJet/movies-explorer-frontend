@@ -1,6 +1,7 @@
 import './SecondHeader.css';
 import logo from '../../../images/Login/logo.svg';
 import { useHistory } from 'react-router-dom';
+import { Registration, ToComeIn } from '../../../utils/constants';
 
 function SecondHeader() {
   const history = useHistory();
@@ -28,14 +29,14 @@ function SecondHeader() {
             className='secondHeader__registr'
             onClick={goToRegistr}
           >
-            Регистрация
+            {Registration}
           </button>
           <button
             type='button'
             className='secondHeader__login'
             onClick={goToLogin}
           >
-            Войти
+            {ToComeIn}
           </button>
         </div>
       </div>

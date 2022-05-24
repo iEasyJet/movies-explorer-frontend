@@ -1,6 +1,7 @@
 import './HamburgerMenu.css';
 import { NavLink, useHistory } from 'react-router-dom';
 import logoAcc from '../../../images/Header/header.svg';
+import { Main, Movies, SavedMovies, Account } from '../../../utils/constants';
 
 function HamburgerMenu() {
   /* История */
@@ -26,7 +27,7 @@ function HamburgerMenu() {
             className='menu__new-item'
             activeClassName='menu__item_active'
           >
-            <div className='menu__underline'>Главная</div>
+            <div className='menu__underline'>{Main}</div>
           </NavLink>
           <NavLink
             exact
@@ -34,7 +35,7 @@ function HamburgerMenu() {
             className='menu__new-item'
             activeClassName='menu__item_active'
           >
-            <span className='menu__underline'>Фильмы</span>
+            <span className='menu__underline'>{Movies}</span>
           </NavLink>
           <NavLink
             exact
@@ -42,12 +43,12 @@ function HamburgerMenu() {
             className='menu__new-item'
             activeClassName='menu__item_active'
           >
-            <span className='menu__underline'>Сохранённые фильмы</span>
+            <span className='menu__underline'>{SavedMovies}</span>
           </NavLink>
         </div>
         <button className='menu__acc' onClick={goToProfile}>
           <img src={logoAcc} alt='Аккаунт' className='menu__logo' />
-          Аккаунт
+          {Account}
         </button>
       </ul>
     </div>

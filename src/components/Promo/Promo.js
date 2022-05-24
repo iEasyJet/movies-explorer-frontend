@@ -1,10 +1,12 @@
 import './Promo.css';
+import { PromoText } from '../../utils/constants';
+
 function Promo() {
   return (
     <div className='promo'>
       <div className='promo__container'>
         <h2 className='promo__title'>
-          Учебный проект студента факультета Веб-разработки.
+          {PromoText}
         </h2>
       </div>
     </div>

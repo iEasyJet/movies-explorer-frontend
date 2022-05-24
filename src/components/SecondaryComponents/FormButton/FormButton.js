@@ -11,6 +11,7 @@ function FormButton(props) {
       onClick={props.onSubmit}
     >
       {props.name}
+      
     </button>
   );
 }

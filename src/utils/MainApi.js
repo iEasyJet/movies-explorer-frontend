@@ -126,6 +126,7 @@ class MainApi {
 
 const configApi = {
   url: 'https://api.diploma.easyjet.nomoredomains.work',
+  /* url: 'http://localhost:3001', */
 };
 
 const mainApi = new MainApi(configApi);

@@ -1,9 +1,14 @@
 import ProfileInput from '../ProfileInput/ProfileInput';
-import { useState } from 'react';
+import CurrentUserContext from '../../../context/CurrentUserContext';
+import React, { useState } from 'react';
+import { ChangeUserDataText, DataMatchError } from '../../../utils/constants';
 
 function ProfileChangeBox(props) {
+  /* Подписка на контекст */
+  const currentUser = React.useContext(CurrentUserContext);
+
   /* Валидация */
-  const [isValid1, setValidity1] = useState(false);
+  const [isValid1, setValidity1] = useState(true);
   const [error1, setError1] = useState('');
 
   const [isValid2, setValidity2] = useState(false);
@@ -13,8 +18,16 @@ function ProfileChangeBox(props) {
     const input = props.nameRef.current;
     setValidity1(input.validity.valid);
     props.validName(input.validity.valid);
+
     if (!isValid1) {
       setError1(input.validationMessage);
+    } else {
+      setError1('');
+    }
+
+    if(currentUser.user.name === props.nameRef.current.value) {
+      setError1(DataMatchError);
+      props.validName(false)
     } else {
       setError1('');
     }
@@ -29,11 +42,17 @@ function ProfileChangeBox(props) {
     } else {
       setError2('');
     }
+    if(currentUser.user.email === props.emailRef.current.value) {
+      setError2(DataMatchError);
+      props.validName(false)
+    } else {
+      setError2('');
+    }
   };
   /*  */
   return (
     <>
-      <h1 className='profile__title'>Отредактируйте свои данные!</h1>
+      <h1 className='profile__title'>{ChangeUserDataText}</h1>
       <form className='profile__form profile__form_mod'>
         <span className='profile_error'>{error1}</span>
         <ProfileInput
@@ -57,6 +76,7 @@ function ProfileChangeBox(props) {
           onChange={handleInput2Change}
           minLen=''
           maxLen=''
+          namePattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
         />
         <span className='profile_error'>{error2}</span>
       </form>

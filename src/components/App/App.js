@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
 import './App.css';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
@@ -15,7 +15,19 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import mainApi from '../../utils/MainApi';
 import CurrentUserContext from '../../context/CurrentUserContext';
 
+import {
+  RegistrationWasSuccessful,
+  RegistrationWasFail,
+  FailUserData,
+  AuthorisationError,
+  DataChangedSuccessfully,
+  DataChangedFail,
+} from '../../utils/constants';
+
 function App() {
+  /* Локация */
+  const location = useLocation();
+
   /* Стейты */
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
@@ -60,12 +72,13 @@ function App() {
         history.push('/sign-in');
         setOpenModalWindow(true);
         setIsOk(true);
-        setText('Регистрация прошла успешна!');
+        setText(RegistrationWasSuccessful);
+        isLogin(data);
       })
       .catch((err) => {
         setOpenModalWindow(true);
         setIsOk(false);
-        setText('Произошла ошибка при регистрации!');
+        setText(RegistrationWasFail);
       });
   };
 
@@ -73,25 +86,24 @@ function App() {
   const isLogin = (data) => {
     return mainApi.login(data).then((res) => {
       localStorage.setItem('jwt', res.token);
-      localStorage.setItem('movies', JSON.stringify([]));
       setLoggedIn(true);
       mainApi
         .getUserInfo(res.token)
         .then((res) => {
           setCurrentUser(res);
+          history.push('/movies');
         })
         .catch((err) => {
           setOpenModalWindow(true);
           setIsOk(false);
-          setText('Произошла ошибка при получении данных пользователя!');
+          setText(FailUserData);
         });
-      history.push('/movies');
     });
   };
 
   /* Выход пол-ля */
   function logout() {
-    history.push('/sign-up');
+    history.push('/');
     setLoggedIn(false);
     localStorage.clear();
     setCurrentUser({});
@@ -113,17 +125,16 @@ function App() {
             .catch((err) => {
               setOpenModalWindow(true);
               setIsOk(false);
-              setText('Произошла ошибка при получении данных пользователя!');
+              setText(FailUserData);
             });
-          history.push('/movies');
         })
         .catch((err) => {
           setOpenModalWindow(true);
           setIsOk(false);
-          setText('Произошла ошибка при авторизации!');
+          setText(AuthorisationError);
         });
     }
-  }, [loggedIn, history]);
+  }, [loggedIn]);
 
   /* Смена данных пользователя */
   function changeUserData(data) {
@@ -134,12 +145,12 @@ function App() {
         setCurrentUser(res);
         setOpenModalWindow(true);
         setIsOk(true);
-        setText('Данные успешно изменены!');
+        setText(DataChangedSuccessfully);
       })
       .catch((err) => {
         setOpenModalWindow(true);
         setIsOk(false);
-        setText('Произошла ошибка при изменении данных!');
+        setText(DataChangedFail);
       });
   }
 
@@ -147,9 +158,6 @@ function App() {
     <>
       <CurrentUserContext.Provider value={currentUser}>
         <Switch>
-          <Route exact path='/'>
-            <Main loggedIn={loggedIn} />
-          </Route>
 
           <ProtectedRoute
             path='/movies'
@@ -177,6 +185,10 @@ function App() {
             changeUserData={changeUserData}
           />
 
+          <Route exact path='/'>
+            <Main loggedIn={loggedIn} />
+          </Route>
+          
           <Route path='/sign-up'>
             <Register submit={isRegistration} />
           </Route>
@@ -184,7 +196,6 @@ function App() {
           <Route path='/sign-in'>
             <Login submit={isLogin} />
           </Route>
-
           <Route path='*' component={PageNotFound} />
         </Switch>
 

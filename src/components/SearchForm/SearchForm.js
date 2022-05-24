@@ -1,5 +1,6 @@
 import './SearchForm.css';
 import FilterCheckbox from '../SecondaryComponents/FilterCheckbox/FilterCheckbox';
+import { Found, SortMovie } from '../../utils/constants';
 
 function SearchForm(props) {
   return (
@@ -16,7 +17,7 @@ function SearchForm(props) {
               defaultValue={props.searchValue}
             />
             <button type='submit' className='search__button'>
-              Найти
+              {Found}
             </button>
           </form>
           <span className='search__line'></span>
@@ -25,7 +26,7 @@ function SearchForm(props) {
               checkRef={props.isChecked}
               checked={props.checked}
             />
-            <p className='search__text'>Короткометражки</p>
+            <p className='search__text'>{SortMovie}</p>
           </div>
         </div>
         <span className='search__line2'></span>

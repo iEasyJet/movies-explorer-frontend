@@ -4,6 +4,7 @@ import logo from '../../images/Login/logo.svg';
 import headerLogo from '../../images/Header/header.svg';
 import HamburgerMenu from '../SecondaryComponents/HamburgerMenu/HamburgerMenu';
 import { useHistory } from 'react-router-dom';
+import { Movies, SavedMovies, Account } from '../../utils/constants';
 
 function MainHeader(props) {
   /* История */
@@ -34,19 +35,19 @@ function MainHeader(props) {
             className='menu__item'
             activeClassName='menu__item_active'
           >
-            Фильмы
+            {Movies}
           </NavLink>
           <NavLink
             to='/saved-movies'
             className='menu__item'
             activeClassName='menu__item_active'
           >
-            Сохранённые фильмы
+            {SavedMovies}
           </NavLink>
         </nav>
         <button className='header__button' onClick={goToProfile}>
           <img src={headerLogo} alt='Аккаунт' className='header__acc' />
-          Аккаунт
+          {Account}
         </button>
       </div>
       <HamburgerMenu />

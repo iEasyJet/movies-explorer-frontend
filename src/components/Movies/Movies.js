@@ -12,7 +12,16 @@ import mainApi from '../../utils/MainApi';
 import search from '../../utils/Search';
 import wordDeclension from '../../utils/WordDeclension';
 import Preloader from '../Preloader/Preloader';
-import isWindowListener from '../../utils/WindowListener'
+import isWindowListener from '../../utils/WindowListener';
+import {
+  InitialNumberOfFilms,
+  InitialNumberOfAdditionFilms,
+  MovieDownloadError,
+  FillInTheField,
+  NotFound,
+  MovieCreationOrDeletionError,
+  NothingHere,
+} from '../../utils/constants';
 
 function Movies(props) {
   /* Подписка на контекст */
@@ -38,26 +47,26 @@ function Movies(props) {
   );
 
   /* Стейты на кнопку еще */
-  const [showMore, setShowMore] = useState(12);
-  const [plusNumber, setPlusNumber] = useState(3);
+  const [showMore, setShowMore] = useState(InitialNumberOfFilms);
+  const [plusNumber, setPlusNumber] = useState(InitialNumberOfAdditionFilms);
 
   /* Стейт на ширину окна */
   const [width, setWidth] = useState(window.screen.availWidth);
 
   /* Стейт на чекбокс */
-  const [checkbox, setCheckbox] = useState(localStorage.getItem('checked1') || false);
+  const [checkbox, setCheckbox] = useState(
+    localStorage.getItem('checked1') || false
+  );
 
   /* Добавление еще фильмов */
   function handleClickMore() {
     setShowMore(showMore + plusNumber);
   }
 
-
   /* Отслеживание ширины экрана для кол-ва карточек */
   useEffect(() => {
-    isWindowListener(width, setWidth, setShowMore, setPlusNumber)
+    isWindowListener(width, setWidth, setShowMore, setPlusNumber);
   }, [width]);
-
 
   /* Получение всех фильмов */
   useEffect(() => {
@@ -67,14 +76,9 @@ function Movies(props) {
         setMovies(res);
       })
       .catch(() => {
-
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText(
-          'Во время запроса произошла ошибка.' +
-            'Возможно, проблема с соединением или сервер недоступен.' +
-            'Перезагрузите страницу!'
-        );
+        props.setText(MovieDownloadError);
       });
   }, [props]);
 
@@ -92,11 +96,7 @@ function Movies(props) {
       .catch(() => {
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText(
-          'Во время запроса произошла ошибка.' +
-            'Возможно, проблема с соединением или сервер недоступен.' +
-            'Перезагрузите страницу!'
-        );
+        props.setText(MovieDownloadError);
       });
   }, [props, currentUser]);
 
@@ -120,14 +120,14 @@ function Movies(props) {
     if (!input) {
       props.setOpenModalWindow(true);
       props.setIsOk(false);
-      props.setText('Заполните поле поиска!');
+      props.setText(FillInTheField);
       setIsLoading(false);
     } else {
       const result = search(movies, input, isShortFilm);
       if (result.length === 0) {
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText('По вашему запросу ничего не найдено!');
+        props.setText(NotFound);
         setIsLoading(false);
       } else {
         localStorage.setItem('movies', JSON.stringify(result));
@@ -162,10 +162,23 @@ function Movies(props) {
       .catch((err) => {
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText(
-          'Во время запроса произошла ошибка.' +
-            'Возможно, проблема с соединением или сервер недоступен.'
-        );
+        props.setText(MovieCreationOrDeletionError);
+      });
+  }
+  /* Функция удаления сохраннеого фильма */
+  function deleteMovie(movie) {
+    const id = movie.idForDelete;
+    const token = localStorage.getItem('jwt');
+
+    mainApi
+      .deleteMovie(id, token)
+      .then(() => {
+        setSavedMovies(savedMovies.filter((item) => item._id !== id));
+      })
+      .catch((err) => {
+        props.setOpenModalWindow(true);
+        props.setIsOk(false);
+        props.setText(MovieCreationOrDeletionError);
       });
   }
 
@@ -184,13 +197,17 @@ function Movies(props) {
           isLoading ? (
             <Preloader />
           ) : searchMovies.length === 0 ? (
-            <div className='cardList__nothing'>
-              Тут пока ничего нет
-            </div>
+            <div className='cardList__nothing'>{NothingHere}</div>
           ) : (
             searchMovies.slice(0, showMore).map((card) => {
               const minute = wordDeclension(card.duration);
               const isSaved = savedMovies.some((i) => i.movieId === card.id);
+              let cardIdForDelete;
+              if (isSaved) {
+                cardIdForDelete = savedMovies.filter(
+                  (i) => i.movieId === card.id
+                )[0]._id;
+              }
 
               return (
                 <MoviesCard
@@ -203,6 +220,8 @@ function Movies(props) {
                   saveMovie={saveMovie}
                   isSaved={isSaved}
                   section={true}
+                  deleteMovie={deleteMovie}
+                  cardIdForDelete={cardIdForDelete}
                 />
               );
             })

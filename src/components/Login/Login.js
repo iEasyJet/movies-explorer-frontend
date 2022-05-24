@@ -4,6 +4,7 @@ import Input from '../SecondaryComponents/Input/Input';
 import FormButton from '../SecondaryComponents/FormButton/FormButton';
 import { useHistory } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import { GladToSee, NotRegisteredYet, Registration } from '../../utils/constants';
 
 function Login(props) {
   /* Рефы */
@@ -50,6 +51,10 @@ function Login(props) {
   function goToRegister() {
     history.push('/sign-up');
   }
+  /* Редирект на главную */
+  function goToProfile() {
+    history.push('/');
+  }
 
   /* Сабмит */
   function onSubmit(e) {
@@ -59,13 +64,14 @@ function Login(props) {
       password: passwordRef.current.value,
     };
     props.submit(userData);
+    
   }
 
   return (
     <div className='login'>
       <div className='login__container'>
-        <img src={logo} alt='Логотип' className='login__logo' />
-        <h1 className='login__title'>Рады видеть!</h1>
+        <img src={logo} alt='Логотип' className='login__logo' onClick={goToProfile}/>
+        <h1 className='login__title'>{GladToSee}</h1>
 
         <form className='form' onSubmit={onSubmit}>
           <Input
@@ -78,6 +84,7 @@ function Login(props) {
             handleInput={handleInput1Change}
             minLen=''
             maxLen=''
+            namePattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
           />
           <Input
             placeholder='Пароль'
@@ -95,8 +102,8 @@ function Login(props) {
         </form>
 
         <button className='login__redirect' onClick={goToRegister}>
-          Ещё не зарегистрированы?
-          <span className='login__redirect_blue_text'> Регистрация</span>
+          {NotRegisteredYet}
+          <span className='login__redirect_blue_text'>{Registration}</span>
         </button>
       </div>
     </div>

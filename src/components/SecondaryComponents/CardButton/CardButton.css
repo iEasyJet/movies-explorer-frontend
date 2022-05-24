@@ -31,6 +31,7 @@
   border-radius: 30px;
   border: none;
   transition: all 0.2s linear;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,5 +55,8 @@
   opacity: 0.8;
 }
 .movie__button_delete:hover {
+  opacity: 0.8;
+}
+.movie__button_saved:hover {
   opacity: 0.8;
 }

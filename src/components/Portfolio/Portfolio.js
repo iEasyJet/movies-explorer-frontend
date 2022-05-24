@@ -1,9 +1,11 @@
 import './Portfolio.css';
+import { PortfolioText, StaticSite, FlexSite, Appendix } from '../../utils/constants';
+
 function Portfolio() {
   return (
     <div className='portfolio'>
       <div className='portfolio__container'>
-        <h3 className='portfolio__title'>Портфолио</h3>
+        <h3 className='portfolio__title'>{PortfolioText}</h3>
         <ul className='portfolio__list'>
           <li>
             <a
@@ -12,7 +14,7 @@ function Portfolio() {
               rel='noopener noreferrer'
               className='portfolio__link'
             >
-              Статичный сайт
+              {StaticSite}
             </a>
           </li>
           <span className='portfolio__line'></span>
@@ -23,7 +25,7 @@ function Portfolio() {
               rel='noopener noreferrer'
               className='portfolio__link'
             >
-              Адаптивный сайт
+              {FlexSite}
             </a>
           </li>
           <span className='portfolio__line'></span>
@@ -34,7 +36,7 @@ function Portfolio() {
               rel='noopener noreferrer'
               className='portfolio__link'
             >
-              Одностраничное приложение
+              {Appendix}
             </a>
           </li>
         </ul>

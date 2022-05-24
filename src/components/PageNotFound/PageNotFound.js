@@ -1,5 +1,6 @@
 import './PageNotFound.css';
 import { useHistory } from 'react-router-dom';
+import { CodeError, PageNotFoundText, Back } from '../../utils/constants';
 
 function PageNotFound() {
   const history = useHistory();
@@ -8,10 +9,10 @@ function PageNotFound() {
   }
   return (
     <div className='not-found'>
-      <h1 className='not-found__title'>404</h1>
-      <p className='not-found__subtitle'>Страница не найдена</p>
+      <h1 className='not-found__title'>{CodeError}</h1>
+      <p className='not-found__subtitle'>{PageNotFoundText}</p>
       <button className='not-found__button' type='button' onClick={goToBack}>
-        Назад
+        {Back}
       </button>
     </div>
   );

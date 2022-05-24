@@ -1,4 +1,5 @@
-import MoviesCardList from '../MoviesCardList/MoviesCardList';import SearchForm from '../SearchForm/SearchForm';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
 import MainHeader from '../MainHeader/MainHeader';
 import More from '../SecondaryComponents/More/More';
 import Footer from '../Footer/Footer';
@@ -8,8 +9,16 @@ import mainApi from '../../utils/MainApi';
 import wordDeclension from '../../utils/WordDeclension';
 import MoviesCard from '../MoviesCard/MoviesCard';
 import search from '../../utils/Search';
-import isWindowListener from '../../utils/WindowListener'
-
+import isWindowListener from '../../utils/WindowListener';
+import {
+  InitialNumberOfFilms,
+  InitialNumberOfAdditionFilms,
+  MovieDownloadError,
+  MovieCreationOrDeletionError,
+  FillInTheField,
+  NotFound,
+  NothingHere,
+} from '../../utils/constants';
 
 function SavedMovies(props) {
   /* Подписка на контекст */
@@ -20,8 +29,8 @@ function SavedMovies(props) {
   const [curMovies, setCurMovies] = useState([]);
 
   /* Стейты на кнопку еще */
-  const [showMore, setShowMore] = useState(12);
-  const [plusNumber, setPlusNumber] = useState(3);
+  const [showMore, setShowMore] = useState(InitialNumberOfFilms);
+  const [plusNumber, setPlusNumber] = useState(InitialNumberOfAdditionFilms);
 
   /* Стейт на поиск */
   const [searchValue, setSearchValue] = useState(
@@ -60,18 +69,14 @@ function SavedMovies(props) {
       .catch(() => {
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText(
-          'Во время запроса произошла ошибка.' +
-            'Возможно, проблема с соединением или сервер недоступен.' +
-            'Перезагрузите страницу!'
-        );
+        props.setText(MovieDownloadError);
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   /* Отслеживание ширины экрана для кол-ва карточек */
   useEffect(() => {
-    isWindowListener(width, setWidth, setShowMore, setPlusNumber)
+    isWindowListener(width, setWidth, setShowMore, setPlusNumber);
   }, [width]);
 
   /* Функция удаления сохраннеого фильма */
@@ -87,10 +92,7 @@ function SavedMovies(props) {
       .catch((err) => {
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText(
-          'Во время запроса произошла ошибка.' +
-            'Возможно, проблема с соединением или сервер недоступен.'
-        );
+        props.setText(MovieCreationOrDeletionError);
       });
   }
 
@@ -115,13 +117,13 @@ function SavedMovies(props) {
     if (!input) {
       props.setOpenModalWindow(true);
       props.setIsOk(false);
-      props.setText('Заполните поле поиска!');
+      props.setText(FillInTheField);
     } else {
       const result = search(savedMovies, input, isShortFilm);
       if (result.length === 0) {
         props.setOpenModalWindow(true);
         props.setIsOk(false);
-        props.setText('По вашему запросу ничего не найдено!');
+        props.setText(NotFound);
       } else {
         setOnSearch(true);
         setCurMovies(result);
@@ -158,7 +160,7 @@ function SavedMovies(props) {
               );
             })
           ) : savedMovies.length === 0 ? (
-            <div className='cardList__nothing'>Тут пока ничего нет</div>
+            <div className='cardList__nothing'>{NothingHere}</div>
           ) : (
             savedMovies.slice(0, showMore).map((card) => {
               const minute = wordDeclension(card.duration);

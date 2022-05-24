@@ -5,6 +5,7 @@ import React, { useState, useRef } from 'react';
 import ProfileChangeBox from '../SecondaryComponents/ProfileChangeBox/ProfileChangeBox';
 import ProfileBox from '../SecondaryComponents/ProfileBox/ProfileBox';
 import FormButton from '../SecondaryComponents/FormButton/FormButton';
+import { CancelChanges, Edit, LogOut } from '../../utils/constants';
 
 function Profile(props) {
   /* Подписка на контекст */
@@ -14,8 +15,8 @@ function Profile(props) {
   const [changeButon, setChangeButton] = useState(false);
 
   /* Стейты  на валидность */
-  const [isValidName, setValidityName] = useState(true);
-  const [isValidEmail, setValidityEmail] = useState(true);
+  const [isValidName, setValidityName] = useState(false);
+  const [isValidEmail, setValidityEmail] = useState(false);
 
   /* Рефы */
   const nameRef = useRef();
@@ -74,7 +75,7 @@ function Profile(props) {
                   setChangeButton(false);
                 }}
               >
-                Отменить изменения
+                {CancelChanges}
               </button>
             </>
           ) : (
@@ -84,14 +85,14 @@ function Profile(props) {
                 className='profile__edit-button'
                 onClick={changeButton}
               >
-                Редактировать
+                {Edit}
               </button>
               <button
                 type='button'
                 className='profile__logout-button'
                 onClick={props.logout}
               >
-                Выйти из аккаунта
+                {LogOut}
               </button>
             </>
           )}

@@ -13,6 +13,7 @@ function MoviesCard(props) {
 
   /* Удаление фильма */
   function deleteMovie() {
+    props.card.idForDelete = props.cardIdForDelete
     props.deleteMovie(props.card);
   }
 
@@ -35,7 +36,7 @@ function MoviesCard(props) {
           </a>
         </>
         {props.section && props.isSaved ? (
-          <CardButton class='movie__button_saved' />
+          <CardButton class='movie__button_saved' click={deleteMovie}/>
         ) : props.section && !props.isSaved ? (
           <CardButton
             class={`${switchButton ? 'movie__button_saved' : 'movie__button'}`}

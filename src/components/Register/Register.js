@@ -4,6 +4,7 @@ import Input from '../SecondaryComponents/Input/Input';
 import FormButton from '../SecondaryComponents/FormButton/FormButton';
 import { useHistory } from 'react-router-dom';
 import { useRef, useState } from 'react';
+import { Welcome, AlreadyRegistered, ToComeIn } from '../../utils/constants';
 
 function Register(props) {
   /* Стейты на валидацию */
@@ -65,8 +66,12 @@ function Register(props) {
 
   /* Редирект на логин */
   function goToLogin() {
-    history.push('sign-in');
+    history.push('/sign-in');
   }
+    /* Редирект на профиль */
+    function goToProfile() {
+      history.push('/');
+    }
 
   /* Регистрация */
   function onSubmit(e) {
@@ -82,8 +87,8 @@ function Register(props) {
   return (
     <div className='register'>
       <div className='register__container'>
-        <img src={logo} alt='Логотип' className='register__logo' />
-        <h1 className='register__title'>Добро пожаловать!</h1>
+        <img src={logo} alt='Логотип' className='register__logo' onClick={goToProfile}/>
+        <h1 className='register__title'>{Welcome}!</h1>
 
         <form className='form' onSubmit={onSubmit}>
           <Input
@@ -108,6 +113,7 @@ function Register(props) {
             handleInput={handleInput2Change}
             minLen=''
             maxLen=''
+            namePattern="^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$"
           />
           <Input
             placeholder='Пароль'
@@ -128,8 +134,8 @@ function Register(props) {
         </form>
 
         <button className='register__redirect' onClick={goToLogin}>
-          Уже зарегистрированы?
-          <span className='register__redirect_blue_text'>Войти</span>
+          {AlreadyRegistered}
+          <span className='register__redirect_blue_text'>{ToComeIn}</span>
         </button>
       </div>
     </div>
