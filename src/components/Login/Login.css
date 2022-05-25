@@ -10,7 +10,7 @@
 }
 .login__container {
   margin: 0;
-  padding: 0 30px;
+  padding: 56px 30px 30px;
   width: 396px;
   display: flex;
   flex-direction: column;
