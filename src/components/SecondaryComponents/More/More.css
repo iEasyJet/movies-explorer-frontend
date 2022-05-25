@@ -1,0 +1,45 @@
+.more {
+  padding: 0;
+  margin: 0;
+  background: #FAFAFA;
+  min-height: 166px;
+  display: flex;
+  min-width: 320px;
+  justify-content: center;
+  background: #F8F8F8;
+}
+.more__button {
+  padding: 0;
+  margin: 50px auto 0;
+  height: 36px;
+  width: 320px;
+  border-color: #E8E8E8;
+  border: 1px solid #E8E8E8;
+  border-radius: 5px;
+  background: #FAFAFA;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  color: #000000;  
+  transition: all 0.2s linear;
+  cursor: pointer;
+}
+.more__button:hover {
+  opacity: 0.8;
+}
+@media (max-width: 768px) {
+  .more {
+    min-height: 196px;
+  }
+  .more__button {
+    margin-top: 80px;
+  }
+}
+@media (max-width: 400px) {
+  .more__button {
+    height: 36px;
+    width: 240px;
+  }
+}

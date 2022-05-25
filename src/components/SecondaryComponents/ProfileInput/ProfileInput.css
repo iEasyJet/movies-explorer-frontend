@@ -1,0 +1,38 @@
+.profileInput {
+  display: flex;
+  justify-content: space-between;
+  min-height: 15px;
+}
+.profileInput__text {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+
+  color: #000000;  
+}
+.profileInput__input {
+  width: 50%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 13px;
+  background: #FAFAFA;
+  text-align: right;
+  border-radius: 8px;
+  
+  color: #000000;  
+}
+
+.profileInput__input:focus {
+  outline: none !important;
+  border: 1px solid #3456F3;
+}
