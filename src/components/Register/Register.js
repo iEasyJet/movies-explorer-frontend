@@ -88,7 +88,7 @@ function Register(props) {
     <div className='register'>
       <div className='register__container'>
         <img src={logo} alt='Логотип' className='register__logo' onClick={goToProfile}/>
-        <h1 className='register__title'>{Welcome}!</h1>
+        <h1 className='register__title'>{Welcome}</h1>
 
         <form className='form' onSubmit={onSubmit}>
           <Input
