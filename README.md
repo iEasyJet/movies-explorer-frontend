@@ -23,7 +23,7 @@
   * FlexBox;
   * Figma;
 
-### `Статус проекта:` <kbd>На проверке</kbd>
+### `Статус проекта:` <kbd>Сдан</kbd>
 
 [Макет диплома](https://disk.yandex.ru/d/P9_BrSWLGuaXfA)  
 [Ссылка на дипломную работу](https://diploma.easyjet.nomoredomains.work)
