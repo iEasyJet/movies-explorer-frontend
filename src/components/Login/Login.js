@@ -98,7 +98,7 @@ function Login(props) {
             maxLen=''
           />
 
-          <FormButton name='Войти' disabled={!(isValid1 && isValid2)} />
+          <FormButton name='Войти' disabled={!(isValid1 && isValid2)} mod='form__submit_login'/>
         </form>
 
         <button className='login__redirect' onClick={goToRegister}>

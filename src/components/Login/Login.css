@@ -45,7 +45,7 @@
   margin: 0;
   padding: 0;
 }
-.form__submit {
+.form__submit_login {
   margin: 179px 0 16px;
 }
 .login__redirect {
@@ -83,7 +83,7 @@
   .login__logo {
     align-self: center;
   }
-  .form__submit {
+  .form__submit_login {
     margin: 267px 0 16px;
   }
   .login__redirect {
