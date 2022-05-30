@@ -8,14 +8,18 @@ function ProfileChangeBox(props) {
   const currentUser = React.useContext(CurrentUserContext);
 
   /* Валидация */
+  const [value1, setValue1] = useState(currentUser.user.name);
   const [isValid1, setValidity1] = useState(true);
   const [error1, setError1] = useState('');
 
-  const [isValid2, setValidity2] = useState(false);
+
+  const [value2, setValue2] = useState(currentUser.user.email);
+  const [isValid2, setValidity2] = useState(true);
   const [error2, setError2] = useState('');
 
   const handleInput1Change = () => {
     const input = props.nameRef.current;
+    setValue1(input.value);
     setValidity1(input.validity.valid);
     props.validName(input.validity.valid);
 
@@ -27,7 +31,7 @@ function ProfileChangeBox(props) {
 
     if(currentUser.user.name === props.nameRef.current.value) {
       setError1(DataMatchError);
-      props.validName(false)
+      props.validName(true)
     } else {
       setError1('');
     }
@@ -35,6 +39,7 @@ function ProfileChangeBox(props) {
 
   const handleInput2Change = () => {
     const input = props.emailRef.current;
+    setValue2(input.value);
     setValidity2(input.validity.valid);
     props.validEmail(input.validity.valid);
     if (!isValid2) {
@@ -44,7 +49,7 @@ function ProfileChangeBox(props) {
     }
     if(currentUser.user.email === props.emailRef.current.value) {
       setError2(DataMatchError);
-      props.validName(false)
+      props.validName(true)
     } else {
       setError2('');
     }
@@ -59,7 +64,7 @@ function ProfileChangeBox(props) {
           placeholderName='Имя'
           type='text'
           name='name'
-          text={props.name}
+          text={value1}
           refName={props.nameRef}
           onChange={handleInput1Change}
           minLen='2'
@@ -71,7 +76,7 @@ function ProfileChangeBox(props) {
           placeholderName='E-mail'
           type='email'
           name='email'
-          text={props.email}
+          text={value2}
           refName={props.emailRef}
           onChange={handleInput2Change}
           minLen=''

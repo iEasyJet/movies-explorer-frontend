@@ -8,7 +8,7 @@ function ProfileInput(props) {
         className='profileInput__input'
         name={props.name}
         required
-        defaultValue={props.text}
+        value={props.text}
         ref={props.refName}
         onChange={props.onChange}
         minLength={props.minLen}

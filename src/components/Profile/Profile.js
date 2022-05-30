@@ -16,7 +16,7 @@ function Profile(props) {
 
   /* Стейты  на валидность */
   const [isValidName, setValidityName] = useState(false);
-  const [isValidEmail, setValidityEmail] = useState(false);
+  const [isValidEmail, setValidityEmail] = useState(true);
 
   /* Рефы */
   const nameRef = useRef();
