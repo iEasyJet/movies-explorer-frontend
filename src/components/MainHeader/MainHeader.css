@@ -23,6 +23,7 @@
 }
 .header__logo:hover {
   opacity: 0.8;
+  cursor: pointer;
 }
 .menu {
   padding: 0 0 0 62px;
