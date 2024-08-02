@@ -27,4 +27,4 @@
 
 [Макет диплома](https://disk.yandex.ru/d/P9_BrSWLGuaXfA)  
 
-[gh-pages](https://ieasyjet.github.io/movies-explorer-frontend/#/)
+[gh-pages](https://easyjet.nomoredomainsrocks.ru/)
